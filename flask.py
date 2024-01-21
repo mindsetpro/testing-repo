@@ -6,9 +6,17 @@ import threading
 import asyncio
 import os
 
+import secrets
+
+# Generate a secure random key
+secret_key = secrets.token_hex(16)
+
+print(secret_key)
+
+
 # Flask App
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure secret key
+app.secret_key = ''  # Replace with a secure secret key
 discord = DiscordOAuth2Session(app)
 
 # Discord Bot
