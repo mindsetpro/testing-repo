@@ -38,7 +38,7 @@ fs.readdir("./commands/", (err, files) => {
 client.on("ready", () => {
   client.user.setActivity('Set Activity', { type: 'WATCHING' });
 });
-
-client.login(config.token)
+const token = process.env.TOKEN;
+client.login(token)
 
 exports.client = client;
