@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS to style the embed builder */
+        .embed-builder {
+            background-color: #36393F;
+            color: #FFFFFF;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .embed-preview {
+            background-color: #202225;
+            color: #FFFFFF;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .embed-field {
+            margin-bottom: 15px;
+        }
+        .embed-color-input {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Welcome, {{ user.username }}!</h2>
+                <p>Your Discord ID: {{ user.id }}</p>
+            </div>
+            <div class="col-md-6">
+                <h2>Bot Settings</h2>
+                <form action="{{ url_for('update_settings') }}" method="post">
+                    <div class="form-group">
+                        <label for="prefix">Bot Prefix:</label>
+                        <input type="text" class="form-control" name="prefix" value="{{ settings.prefix }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="welcome_message">Welcome Message:</label>
+                        <textarea class="form-control" name="welcome_message" rows="3" required>{{ settings.welcome_message }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="goodbye_message">Goodbye Message:</label>
+                        <textarea class="form-control" name="goodbye_message" rows="3" required>{{ settings.goodbye_message }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="embed_channel">Embed Channel ID:</label>
+                        <input type="text" class="form-control" name="embed_channel" value="{{ settings.embed_channel }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Settings</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Embed Builder -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <h2>Welcome/Goodbye Message Embed Builder</h2>
+                <div class="embed-builder">
+                    <form action="{{ url_for('update_embed') }}" method="post">
+                        <div class="form-group embed-field">
+                            <label for="embed_title">Embed Title:</label>
+                            <input type="text" class="form-control" name="embed_title" required>
+                        </div>
+                        <div class="form-group embed-field">
+                            <label for="embed_description">Embed Description:</label>
+                            <textarea class="form-control" name="embed_description" rows="5" required></textarea>
+                        </div>
+                        <div class="form-group embed-field">
+                            <label for="embed_color">Embed Color:</label>
+                            <input type="color" class="form-control embed-color-input" name="embed_color" value="#7289DA" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Embed</button>
+                    </form>
+                </div>
+                <div class="embed-preview">
+                    <h5 class="text-white">Embed Preview</h5>
+                    <div class="card" style="background-color: #7289DA;">
+                        <div class="card-body">
+                            <h5 class="card-title">Embed Title</h5>
+                            <p class="card-text">Embed Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
